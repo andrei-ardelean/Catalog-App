@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+
+.title-header {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: 20px;
+}
+
+.add-btn {
+  margin-right: 20px;
+  background-color: #00994d;
+  color: white;
+  font-size: 18px;
+  padding: 14px 28px;
+  cursor: pointer;
+
+}
+
+.add-btn:hover {
+  background-color: #008040;
+}
