@@ -1,18 +1,25 @@
 import '../styles/ProductList.css';
 import Product from "../interfaces";
 import ProductItem from './ProductItem'
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators, State, store } from '../state';
 
-interface ProductListProps {
-  products: Product[],
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>
-}
+// interface ProductListProps {
+//   products: Product[],
+//   setProducts: React.Dispatch<React.SetStateAction<Product[]>>
+// }
 
-const ProductList: React.FC<ProductListProps> = ({products, setProducts}) => {
+const ProductList = () => {
+  const dispatch = useDispatch();
+  const {deleteProduct} = bindActionCreators(actionCreators, dispatch);
+  const products = useSelector((state: State) => state.products);
 
   const handleDeleteBtn = (_id: string):void => {
-    setProducts(
-      products.filter(product => product._id !== _id)
-    );
+    // setProducts(
+    //   products.filter(product => product._id !== _id)
+    // );
+    deleteProduct(_id);
   }
 
   return (

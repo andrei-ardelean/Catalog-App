@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import './App.css'
-import AddProduct from './components/AddProduct';
-import Header from './components/Header';
-import ProductList from './components/ProductList';
-import ProductPage from './components/ProductPage';
-import { State } from './state';
+import Product from "../../interfaces";
+import { ActionType } from "../action-types";
+import { Action } from "../actions";
 
-const prods = [
+const products = [
   {
     "_id": "6127aa08fb3c3b10c827e88f",
     "name": "fugiat",
@@ -59,36 +54,16 @@ const prods = [
   }
 ];
 
-function App() {
-
-  // const [products, setProducts] = useState(prods);
-  const [showAddProduct, setShowAddProduct] = useState(false);
-
-  // const firstProduct = products[0];
-  
-  return (
-    <div className="App">
-      <Header showAddProduct={showAddProduct} setShowAddProduct={setShowAddProduct}/>
-      {
-        showAddProduct && 
-          <AddProduct />
-      }
-      <ProductList />
-      
-      {/* {
-        false &&
-          (
-          <ProductPage
-            _id={firstProduct._id}
-            name={firstProduct.name}
-            url={firstProduct.url}
-            price={firstProduct.price}
-            description={firstProduct.description}
-          />
-          )
-      } */}
-    </div>
-  );
+const reducer = (state:Product[] = products, action: Action) => {
+  switch(action.type) {
+    case ActionType.ADD_PRODUCT:
+      return [...state, action.payload]
+    case ActionType.DELETE_PRODUCT:
+      return state.filter(product => product._id !== action.payload)
+    default: {
+      return state
+    }
+  }
 }
 
-export default App;
+export default reducer;

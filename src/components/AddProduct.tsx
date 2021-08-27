@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Product from '../interfaces'
+import { actionCreators, State } from '../state';
 import '../styles/AddProduct.css'
 
-interface AddProductProps {
-  products: Product[]
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>
-}
+// interface AddProductProps {
+//   products: Product[]
+//   setProducts: React.Dispatch<React.SetStateAction<Product[]>>
+// }
 
-const AddProduct: React.FC<AddProductProps>= ({products, setProducts}) => {
+const AddProduct: React.FC = () => {
   
   const [input, setInput] = useState({
     name: "",
@@ -15,6 +18,10 @@ const AddProduct: React.FC<AddProductProps>= ({products, setProducts}) => {
     price: "",
     description: ""
   })
+
+  const dispatch = useDispatch();
+  const {addProduct} = bindActionCreators(actionCreators, dispatch);
+  const products = useSelector((state: State) => state.products);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setInput({
@@ -31,16 +38,24 @@ const AddProduct: React.FC<AddProductProps>= ({products, setProducts}) => {
 
     const _id = products.length.toString();
 
-    setProducts([
-      ...products,
-      {
-        _id: _id,
-        name: input.name,
-        url: input.url,
-        price: parseInt(input.price),
-        description: input.description,
-      }
-    ]);
+    // setProducts([
+    //   ...products,
+      // {
+      //   _id: _id,
+      //   name: input.name,
+      //   url: input.url,
+      //   price: parseInt(input.price),
+      //   description: input.description,
+      // }
+    // ]);
+
+    addProduct({
+      _id: _id,
+      name: input.name,
+      url: input.url,
+      price: parseInt(input.price),
+      description: input.description,
+    });
   }
 
   return (

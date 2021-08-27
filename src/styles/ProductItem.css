@@ -16,6 +16,18 @@
   position: relative;
 }
 
+@media screen and (max-width: 1000px) {
+  .product-container {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .product-container {
+    width: 100%;
+  }
+}
+
 .product-container:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
