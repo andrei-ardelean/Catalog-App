@@ -1,0 +1,25 @@
+.container {
+  height: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.container img {
+  float: left;
+  width: 400px;
+  height: 350px;
+  margin-right: 15px;
+}
+
+.name-div {
+  display: flex;
+  justify-content: center;
+}
+
+.description-div {
+  font-size: 20px;
+}
+
+.price-div {
+  font-size: 20px;
+}

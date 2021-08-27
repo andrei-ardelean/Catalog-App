@@ -23,9 +23,13 @@
   font-size: 18px;
   padding: 14px 28px;
   cursor: pointer;
-
 }
 
-.add-btn:hover {
-  background-color: #008040;
+.add-btn-clicked {
+  margin-right: 20px;
+  background-color: #f10014;
+  color: white;
+  font-size: 18px;
+  padding: 14px 28px;
+  cursor: pointer;
 }

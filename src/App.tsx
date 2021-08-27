@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './App.css'
+import AddProduct from './components/AddProduct';
 import Header from './components/Header';
 import ProductList from './components/ProductList';
+import ProductPage from './components/ProductPage';
 
 const prods = [
   {
@@ -58,11 +60,31 @@ const prods = [
 function App() {
 
   const [products, setProducts] = useState(prods);
+  const [showAddProduct, setShowAddProduct] = useState(false);
 
+  const firstProduct = products[0];
+  
   return (
     <div className="App">
-      <Header />
-      <ProductList products={products}/>
+      <Header showAddProduct={showAddProduct} setShowAddProduct={setShowAddProduct}/>
+      {
+        showAddProduct && 
+          <AddProduct products={products} setProducts={setProducts}/>
+      }
+      <ProductList products={products} setProducts={setProducts} />
+      
+      {
+        false &&
+          (
+          <ProductPage
+            _id={firstProduct._id}
+            name={firstProduct.name}
+            url={firstProduct.url}
+            price={firstProduct.price}
+            description={firstProduct.description}
+          />
+          )
+      }
     </div>
   );
 }

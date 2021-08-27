@@ -4,6 +4,7 @@ interface Product {
   url: string
   price: number
   description: string
+  onDelete?: any
 }
 
 export default Product;
