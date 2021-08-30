@@ -1,3 +1,6 @@
+import { Button } from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 import '../styles/Header.css';
 
 interface HeaderProps {
@@ -9,17 +12,23 @@ const Header: React.FC<HeaderProps> = ({showAddProduct, setShowAddProduct}) => {
   return (
     <div className="header-container">
         <h1 className="title-header">Catalog-App</h1>
-        <button
-          className={`${showAddProduct ? 'add-btn-clicked' : 'add-btn'}`}
-          onClick={() => setShowAddProduct(!showAddProduct)}
-        >
+        <Button
+          size="large"
+          variant="contained"
+          color={`${showAddProduct ? "secondary" : "primary"}`}
+          disableElevation
+          disableRipple
+          style={{margin: 20}}
+          endIcon={
+            showAddProduct ? (<CancelIcon/>) : (<AddCircleIcon/>)
+          }
+          onClick={() => setShowAddProduct(!showAddProduct)}>
           {
             showAddProduct
-              ? 'Close' 
-              : 'Add'
+              ? 'CLOSE' 
+              : 'ADD'
           }
-          
-        </button>
+        </Button>
     </div>
   );
 }

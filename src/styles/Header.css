@@ -15,21 +15,3 @@
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-left: 20px;
 }
-
-.add-btn {
-  margin-right: 20px;
-  background-color: #00994d;
-  color: white;
-  font-size: 18px;
-  padding: 14px 28px;
-  cursor: pointer;
-}
-
-.add-btn-clicked {
-  margin-right: 20px;
-  background-color: #f10014;
-  color: white;
-  font-size: 18px;
-  padding: 14px 28px;
-  cursor: pointer;
-}

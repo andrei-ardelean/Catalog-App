@@ -1,10 +1,14 @@
 import '../styles/ProductItem.css';
 import Product from '../interfaces';
+import { Button, ButtonGroup } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 const ProductItem: React.FC<Product> = ({_id, name, url, price, description, onDelete} : Product) => {
 
   const handleGotoPageBtn = ():void => {
     //todo
+    alert('go to product page');
   }
 
   return (
@@ -19,18 +23,32 @@ const ProductItem: React.FC<Product> = ({_id, name, url, price, description, onD
           <p>{price} RON</p>
         </div>
       </div>
-      <button
-        className="goto-page-btn"
-        onClick={handleGotoPageBtn}
-      >
-          GO
-      </button>
-      <button
-        className="delete-btn"
-        onClick={(id) => onDelete(_id)}
-      >
-        X
-      </button>
+      <div className="buttons">
+        
+      </div>
+      <ButtonGroup
+        fullWidth
+        size="medium"
+        variant="contained"
+        disableElevation
+        disableRipple
+        style={{borderRadius: 0}}>
+        <Button
+          color="primary"
+          style={{borderRadius: 0}}
+          endIcon={<KeyboardArrowRightIcon/>}
+          onClick={handleGotoPageBtn}>
+            GO
+        </Button>
+        <Button
+          color="secondary"
+          style={{borderRadius: 0}}
+          endIcon={<DeleteIcon/>}
+          onClick={() => onDelete(_id)}>
+            DELETE
+        </Button>
+      </ButtonGroup>
+      
     </div>
   );
 }

@@ -7,6 +7,11 @@ import ProductList from './components/ProductList';
 import ProductPage from './components/ProductPage';
 import { State } from './state';
 
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 const prods = [
   {
     "_id": "6127aa08fb3c3b10c827e88f",
@@ -59,7 +64,7 @@ const prods = [
   }
 ];
 
-function App() {
+const App: React.FC = () => {
 
   // const [products, setProducts] = useState(prods);
   const [showAddProduct, setShowAddProduct] = useState(false);
@@ -68,6 +73,21 @@ function App() {
   
   return (
     <div className="App">
+      {/* <ButtonGroup
+          disableElevation
+          size="large"
+          variant="contained"
+          color="primary">
+        <Button
+          startIcon={<SaveIcon/>}>
+          Add product
+        </Button>
+        <Button
+          startIcon={<DeleteIcon/>}>
+          Delete product
+        </Button>
+      </ButtonGroup> */}
+      
       <Header showAddProduct={showAddProduct} setShowAddProduct={setShowAddProduct}/>
       {
         showAddProduct && 

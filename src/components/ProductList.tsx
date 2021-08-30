@@ -16,9 +16,6 @@ const ProductList = () => {
   const products = useSelector((state: State) => state.products);
 
   const handleDeleteBtn = (_id: string):void => {
-    // setProducts(
-    //   products.filter(product => product._id !== _id)
-    // );
     deleteProduct(_id);
   }
 

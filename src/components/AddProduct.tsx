@@ -1,9 +1,14 @@
+import SaveIcon from '@material-ui/icons/Save';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Product from '../interfaces'
 import { actionCreators, State } from '../state';
 import '../styles/AddProduct.css'
+import TextField from '@material-ui/core/TextField';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import Button from '@material-ui/core/Button';
+
 
 // interface AddProductProps {
 //   products: Product[]
@@ -38,17 +43,6 @@ const AddProduct: React.FC = () => {
 
     const _id = products.length.toString();
 
-    // setProducts([
-    //   ...products,
-      // {
-      //   _id: _id,
-      //   name: input.name,
-      //   url: input.url,
-      //   price: parseInt(input.price),
-      //   description: input.description,
-      // }
-    // ]);
-
     addProduct({
       _id: _id,
       name: input.name,
@@ -56,47 +50,59 @@ const AddProduct: React.FC = () => {
       price: parseInt(input.price),
       description: input.description,
     });
+
+    setInput({
+      name: "",
+      url: "",
+      price: "",
+      description: ""
+    });
   }
 
   return (
     <div className="form-container">
-      <input
+      <TextField
         type="text"
         name="name"
-        placeholder="Name"
-        className="input-field"
+        label="Name"
+        variant="outlined"
+        style={{marginBottom: 10}}
         value={input.name}
-        onChange={handleChange}
-      />
-      <input
+        onChange={handleChange}/>
+      <TextField
         type="text"
-        name="price" 
-        placeholder="Price"
-        className="input-field"
+        name="price"
+        label="Price"
+        variant="outlined"
+        style={{marginBottom: 10}}
         value={input.price}
-        onChange={handleChange}
-      />
-      <input
+        onChange={handleChange}/>
+      {/* todo: add input file for url */}
+      <TextField
         type="text"
         name="url"
-        placeholder="URL"
-        className="input-field"
+        label="URL"
+        variant="outlined"
+        style={{marginBottom: 10}}
         value={input.url}
-        onChange={handleChange}
-      />
-      <textarea
-        rows={10}
+        onChange={handleChange}/>
+      <TextareaAutosize
+        minRows={15}
         name="description"
-        placeholder="Description"
         value={input.description}
-        onChange={handleChange}
-      />
-      <button
-        className="save-btn"
+        style={{marginBottom: 10}}
+        placeholder="Add description here"
+        onChange={handleChange} />
+      <Button
+        size="large"
+        variant="contained"
+        color="primary"
+        disableElevation
+        disableRipple
         onClick={handleSaveClick}
-      >
-          Save product
-      </button>
+        endIcon={<SaveIcon/>}>
+          SAVE
+      </Button>
     </div>
   );
 }
