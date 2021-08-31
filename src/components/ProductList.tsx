@@ -1,16 +1,14 @@
 import '../styles/ProductList.css';
-import Product from "../interfaces";
 import ProductItem from './ProductItem'
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators, State, store } from '../state';
+import { actionCreators, State } from '../state';
 
-// interface ProductListProps {
-//   products: Product[],
-//   setProducts: React.Dispatch<React.SetStateAction<Product[]>>
-// }
+interface ProductListProps {
+  handleEditBtn: any
+}
 
-const ProductList = () => {
+const ProductList: React.FC<ProductListProps> = ({handleEditBtn}) => {
   const dispatch = useDispatch();
   const {deleteProduct} = bindActionCreators(actionCreators, dispatch);
   const products = useSelector((state: State) => state.products);
@@ -33,6 +31,7 @@ const ProductList = () => {
                   price={product.price}
                   description={product.description}
                   onDelete={handleDeleteBtn}
+                  onEdit={handleEditBtn}
                 />
               );
             }))

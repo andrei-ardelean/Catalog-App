@@ -47,8 +47,3 @@ img {
   justify-content: space-between;
   padding: 5px 10px;
 }
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-}

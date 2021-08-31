@@ -5,6 +5,7 @@ interface Product {
   price: number
   description: string
   onDelete?: any
+  onEdit?: any
 }
 
 export default Product;

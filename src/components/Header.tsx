@@ -4,31 +4,29 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import '../styles/Header.css';
 
 interface HeaderProps {
-  showAddProduct: boolean
-  setShowAddProduct: React.Dispatch<React.SetStateAction<boolean>>
+  openPopup: boolean
+  setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Header: React.FC<HeaderProps> = ({showAddProduct, setShowAddProduct}) => {
+const Header: React.FC<HeaderProps> = ({openPopup, setOpenPopup}) => {
   return (
     <div className="header-container">
-        <h1 className="title-header">Catalog-App</h1>
-        <Button
-          size="large"
-          variant="contained"
-          color={`${showAddProduct ? "secondary" : "primary"}`}
-          disableElevation
-          disableRipple
-          style={{margin: 20}}
-          endIcon={
-            showAddProduct ? (<CancelIcon/>) : (<AddCircleIcon/>)
-          }
-          onClick={() => setShowAddProduct(!showAddProduct)}>
-          {
-            showAddProduct
-              ? 'CLOSE' 
-              : 'ADD'
-          }
-        </Button>
+        <h1 className="title-header" style={{flexGrow:1}}>Catalog-App</h1>
+        {
+          !openPopup &&
+            <Button
+              size="large"
+              variant="contained"
+              color={"primary"}
+              disableElevation
+              disableRipple
+              endIcon={
+                !openPopup && (<AddCircleIcon/>)
+              }
+              onClick={() => setOpenPopup(!openPopup)}>
+                ADD
+            </Button>
+        }
     </div>
   );
 }

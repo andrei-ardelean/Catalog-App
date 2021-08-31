@@ -20,3 +20,12 @@ export const deleteProduct = (_id: string) => {
     })
   }
 }
+
+export const editProduct = (product: Product) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.EDIT_PRODUCT,
+      payload: product
+    })
+  }
+}
