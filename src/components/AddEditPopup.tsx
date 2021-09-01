@@ -12,6 +12,7 @@ import { Dialog, DialogTitle, DialogContent, makeStyles, Typography } from '@mat
 import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
 import Product from '../interfaces';
+import { NotifyType } from './Notification';
 
 const Transition = forwardRef(
   function Transition(
@@ -36,9 +37,10 @@ interface AddProductPopupProps {
   openPopup: boolean
   setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>
   handleResetCurrentProduct: any
+  setNotify: React.Dispatch<React.SetStateAction<NotifyType>>
 }
 
-const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPopup, setOpenPopup, handleResetCurrentProduct}) => {
+const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPopup, setOpenPopup, handleResetCurrentProduct, setNotify}) => {
   let initialInput;
   if (product === undefined) {
     initialInput = {
@@ -79,7 +81,9 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
 
     if (product === undefined) {
       //add
-      const _id = (products.length + 1).toString();
+      const maxId = Math.max(...products.map(product => parseInt(product._id)));
+      const _id = (maxId + 1).toString();
+
       addProduct({
         _id: _id,
         name: input.name,
@@ -87,6 +91,12 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
         price: parseInt(input.price),
         description: input.description,
       });
+
+      setNotify({
+        isOpen: true,
+        message: 'Added successfully',
+        type: 'success'
+      })
     }
     else {
       //edit
@@ -96,6 +106,12 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
         url: input.url,
         price: parseInt(input.price),
         description: input.description,
+      })
+
+      setNotify({
+        isOpen: true,
+        message: 'Updated successfully',
+        type: 'success'
       })
     }
 
@@ -178,8 +194,6 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
           </div>
         </DialogContent>
     </Dialog>
-
-    
   );
 }
 

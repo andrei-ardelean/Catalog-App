@@ -6,11 +6,13 @@ import ProductList from './components/ProductList';
 import ProductPage from './components/ProductPage';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import Product from './interfaces';
+import Notification, { NotifyType } from './components/Notification';
 
 const App: React.FC = () => {
 
   const [openPopup, setOpenPopup] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<Product | undefined>(undefined);
+  const [notify, setNotify] = useState<NotifyType>({isOpen: false, message: '', type: undefined});
 
   const handleEditBtn = (product: Product) => {
     setCurrentProduct(product);
@@ -18,8 +20,8 @@ const App: React.FC = () => {
   }
 
   const handleResetCurrentProduct = () => {
-      setCurrentProduct(undefined);
-      setOpenPopup(false);
+    setCurrentProduct(undefined);
+    setOpenPopup(false);
   }
 
   return (
@@ -38,9 +40,16 @@ const App: React.FC = () => {
                         }`}
                   openPopup={openPopup}
                   setOpenPopup={setOpenPopup}
-                  handleResetCurrentProduct={handleResetCurrentProduct}/>
+                  handleResetCurrentProduct={handleResetCurrentProduct}
+                  setNotify={setNotify}/>
             }
-            <ProductList handleEditBtn={handleEditBtn}/>
+            <Notification
+              notify={notify}
+              setNotify={setNotify}>
+            </Notification>
+            <ProductList
+              handleEditBtn={handleEditBtn}
+              setNotify={setNotify}/>
           </>
         )}/>
         <Route path="/products/:id" component={ProductPage}/>

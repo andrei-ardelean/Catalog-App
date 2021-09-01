@@ -2,10 +2,24 @@ import '../styles/ProductPage.css';
 import { Link, RouteComponentProps } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { State } from '../state';
-import { Button } from '@material-ui/core';
+import { Button, Card, CardContent, CardHeader, CardMedia, makeStyles, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 type Params = {id: string}
+
+const useStyles = makeStyles({
+  root: {
+    width: 700,
+    margin: 'auto'
+  },
+  media: {
+    height: 500,
+    paddingTop: '100%',
+  },
+  span: {
+    fontWeight: 'bold',
+  }
+});
 
 const ProductPage: React.FC<RouteComponentProps<Params>> = ({ match }: RouteComponentProps<Params>) => {
   
@@ -13,37 +27,40 @@ const ProductPage: React.FC<RouteComponentProps<Params>> = ({ match }: RouteComp
   const products = useSelector((state: State) => state.products);
   const currentProduct = products.filter(prod => prod._id === id)[0];
 
+  const classes = useStyles();
+
   return (
-    <div className="container">
-      <div className="header">
-        <Link
-          to="/products"
-          style={{textDecoration:'none'}}>
-          <Button
-            variant="contained"
-            size="large"
-            color="secondary"
-            startIcon={<ArrowBackIcon/>}>
-              RETURN
-          </Button>
-        </Link>
-        <h1 style={{flexGrow:1, textAlign:"center"}}>{currentProduct.name}</h1>
-      </div>
-      <div className="content">
-        <img
-          src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
-          alt={`Product with id=${id}`}
-        />
-        <div className="price-div">
-          <span style={{fontWeight:'bold'}}>Price: </span>
-          <span>{currentProduct.price} RON</span>
-        </div>
-        <div className="description-div">
-          <span style={{fontWeight:'bold'}}>Description: </span>
-          <span>{currentProduct.description}</span>
-        </div>
-      </div>
-    </div>
+    <Card className={classes.root} variant="outlined">
+      <CardHeader 
+        action={
+          <Link
+            to="/products"
+            style={{textDecoration:'none'}}>
+            <Button
+              variant="contained"
+              size="large"
+              color="secondary"
+              startIcon={<ArrowBackIcon/>}>
+                RETURN
+            </Button>
+          </Link>
+        }
+        title={currentProduct.name}
+        titleTypographyProps={{variant:'h4'}}
+      />
+      <CardMedia
+        className={classes.media}
+        image={currentProduct.url}
+      />
+      <CardContent>
+        <Typography variant="h5" gutterBottom>
+          <span className={classes.span}>Price:</span> {currentProduct.price} RON
+        </Typography>
+        <Typography variant="h5" gutterBottom>
+          <span className={classes.span}>Description:</span> {currentProduct.description}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }
 

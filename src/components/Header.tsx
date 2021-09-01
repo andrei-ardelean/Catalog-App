@@ -1,6 +1,5 @@
 import { Button } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
 import '../styles/Header.css';
 
 interface HeaderProps {
@@ -11,7 +10,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({openPopup, setOpenPopup}) => {
   return (
     <div className="header-container">
-        <h1 className="title-header" style={{flexGrow:1}}>Catalog-App</h1>
+        <h1 className="title-header" style={{flexGrow:1}}>Leroy Merlin low-budget</h1>
         {
           !openPopup &&
             <Button
