@@ -1,6 +1,6 @@
 import '../styles/ProductItem.css';
 import Product from '../interfaces';
-import { Button, ButtonGroup, Card, CardHeader, CardMedia, makeStyles } from '@material-ui/core';
+import { Button, ButtonGroup, Card, CardActions, CardHeader, CardMedia, makeStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
@@ -33,8 +33,9 @@ const ProductItem: React.FC<Product> = ({_id, name, url, price, description, onD
       <CardHeader
         title={name}
         subheader={`${price} RON`}
-        action={
-          <ButtonGroup
+      />
+      <CardActions>
+        <ButtonGroup
           fullWidth
           size="medium"
           variant="contained"
@@ -53,8 +54,7 @@ const ProductItem: React.FC<Product> = ({_id, name, url, price, description, onD
                 <DeleteIcon/>
             </Button>
         </ButtonGroup>
-        }
-      />
+      </CardActions>
     </Card>
 
     // <div className="product-container">
