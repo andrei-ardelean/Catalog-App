@@ -1,4 +1,4 @@
-import { makeStyles, Snackbar } from "@material-ui/core";
+import { makeStyles, Snackbar, Theme } from "@material-ui/core";
 import { Alert } from '@material-ui/lab';
 
 type Severity = 'success' | 'info' | 'warning' | 'error' | undefined;
@@ -13,7 +13,7 @@ interface NotificationProps {
   setNotify: React.Dispatch<React.SetStateAction<NotifyType>>
 }
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     top: theme.spacing(10),
     right: theme.spacing(23)
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: any) => ({
 const Notification: React.FC<NotificationProps> = ({notify, setNotify}) => {
   const classes = useStyles();
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     setNotify({
       ...notify,
       isOpen: false

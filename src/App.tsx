@@ -1,6 +1,6 @@
 import './App.css'
 import React, { useState } from 'react';
-import AddProductPopup from './components/AddEditPopup';
+import AddEditPopup from './components/AddEditPopup';
 import Header from './components/Header';
 import ProductList from './components/ProductList';
 import ProductPage from './components/ProductPage';
@@ -32,14 +32,13 @@ const App: React.FC = () => {
             <Header openPopup={openPopup} setOpenPopup={setOpenPopup}/>
             {
               openPopup && 
-                <AddProductPopup
+                <AddEditPopup
                   product={currentProduct}
                   title={`${currentProduct === undefined
                           ? 'Add a new product'
                           : 'Edit product'
                         }`}
                   openPopup={openPopup}
-                  setOpenPopup={setOpenPopup}
                   handleResetCurrentProduct={handleResetCurrentProduct}
                   setNotify={setNotify}/>
             }
@@ -53,7 +52,7 @@ const App: React.FC = () => {
           </>
         )}/>
         <Route path="/products/:id" component={ProductPage}/>
-        <Redirect to="/products" />
+        {/* <Redirect to="/products" /> */}
       </div>
     </Router>
   );

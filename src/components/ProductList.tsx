@@ -1,10 +1,10 @@
-import '../styles/ProductList.css';
 import ProductItem from './ProductItem'
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators, State } from '../state';
 import { NotifyType } from './Notification';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
+import React from 'react';
 
 interface ProductListProps {
   handleEditBtn: any
@@ -18,15 +18,14 @@ const useStyles = makeStyles({
 });
 
 const ProductList: React.FC<ProductListProps> = ({handleEditBtn, setNotify}) => {
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   const {deleteProduct} = bindActionCreators(actionCreators, dispatch);
   const products = useSelector((state: State) => state.products);
 
-  const classes = useStyles();
-
   const handleDeleteBtn = (_id: string):void => {
     deleteProduct(_id);
-
     setNotify({
       isOpen: true,
       message: 'Deleted successfully',

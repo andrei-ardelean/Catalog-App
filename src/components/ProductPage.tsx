@@ -1,4 +1,3 @@
-import '../styles/ProductPage.css';
 import { Link, RouteComponentProps } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { State } from '../state';
@@ -21,13 +20,12 @@ const useStyles = makeStyles({
   }
 });
 
-const ProductPage: React.FC<RouteComponentProps<Params>> = ({ match }: RouteComponentProps<Params>) => {
+const ProductPage: React.FC<RouteComponentProps<Params>> = ({ match }) => {
+  const classes = useStyles();
   
   const id = match.params.id;
   const products = useSelector((state: State) => state.products);
   const currentProduct = products.filter(prod => prod._id === id)[0];
-
-  const classes = useStyles();
 
   return (
     <Card className={classes.root} variant="outlined">

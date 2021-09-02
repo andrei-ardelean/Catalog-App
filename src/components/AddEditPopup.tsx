@@ -8,39 +8,33 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
-import { Dialog, DialogTitle, DialogContent, makeStyles, Typography } from '@material-ui/core';
-import Slide from '@material-ui/core/Slide';
-import { TransitionProps } from '@material-ui/core/transitions';
+import { Dialog, DialogTitle, DialogContent, makeStyles, Typography, InputAdornment, Theme } from '@material-ui/core';
 import Product from '../interfaces';
 import { NotifyType } from './Notification';
 
-const Transition = forwardRef(
-  function Transition(
-    props: TransitionProps & { children?: React.ReactElement<any, any> },
-    ref: Ref<unknown>) {
-      return <Slide direction="up" ref={ref} {...props} />;
-    }
-  );
-
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   dialogWrapper: {
     padding: theme.spacing(2), //1->8px
     position: 'absolute',
     top: theme.spacing(10),
     width: '60%'
+  },
+  margin: {
+    margin: theme.spacing(1)
   }
 }))
 
-interface AddProductPopupProps {
+interface AddEditPopupProps {
   product: Product | undefined
   title: string
   openPopup: boolean
-  setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>
   handleResetCurrentProduct: any
   setNotify: React.Dispatch<React.SetStateAction<NotifyType>>
 }
 
-const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPopup, setOpenPopup, handleResetCurrentProduct, setNotify}) => {
+const AddEditPopup: React.FC<AddEditPopupProps> = ({product, title, openPopup, handleResetCurrentProduct, setNotify}) => {
+  const classes = useStyles();
+
   let initialInput;
   if (product === undefined) {
     initialInput = {
@@ -59,12 +53,23 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
     }
   }
   const [input, setInput] = useState(initialInput);
-
-  const classes = useStyles();
+  const [errors, setErrors] = useState({name: "", price: "", url: ""});
 
   const dispatch = useDispatch();
   const {addProduct, editProduct} = bindActionCreators(actionCreators, dispatch);
   const products = useSelector((state: State) => state.products);
+
+  const validate = ():boolean =>  {
+    let temp = {name: "", url: "", description: "", price: ""}
+    temp.name = input.name ? "" : "The 'Name' field cannot be empty."
+    temp.price = (Number.isInteger(Number(input.price)) && input.price) ? "" : "Price must be an integer value."
+    temp.url = input.url ? "" : "The 'URL' field cannot be empty."
+    setErrors({
+      ...temp
+    });
+
+    return Object.values(temp).every(error => error === "");
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setInput({
@@ -74,10 +79,9 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
   }
 
   const handleSaveClick = (): void => {
-    if (!input.name || !input.description || !input.price || !input.url) {
-      alert('Please fill in all of the fields!');
+    if (!validate())
       return;
-    }
+    
 
     if (product === undefined) {
       //add
@@ -130,7 +134,7 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
       open={openPopup}
       maxWidth="md"
       classes={{paper:classes.dialogWrapper}}
-      TransitionComponent={Transition}>
+      >
         <DialogTitle>
           <div style={{display: 'flex'}}>
             <Typography
@@ -156,6 +160,7 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
               variant="outlined"
               style={{marginBottom: 10}}
               value={input.name}
+              {...((errors.name !== "") && {error: true, helperText: errors.name})}
               onChange={handleChange}/>
             <TextField
               type="text"
@@ -164,8 +169,11 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
               variant="outlined"
               style={{marginBottom: 10}}
               value={input.price}
-              onChange={handleChange}/>
-            {/* todo: add input file for url */}
+              {...((errors.price !== "") && {error: true, helperText: errors.price})}
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">RON</InputAdornment>,
+              }}/>
             <TextField
               type="text"
               name="url"
@@ -173,6 +181,7 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
               variant="outlined"
               style={{marginBottom: 10}}
               value={input.url}
+              {...((errors.url !== "") && {error: true, helperText: errors.url})}
               onChange={handleChange}/>
             <TextareaAutosize
               minRows={15}
@@ -197,4 +206,4 @@ const AddProductPopup: React.FC<AddProductPopupProps> = ({product, title, openPo
   );
 }
 
-export default AddProductPopup;
+export default AddEditPopup;

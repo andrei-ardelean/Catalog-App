@@ -2,8 +2,6 @@ import Product from "../../interfaces";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 
-//default url -> http://placehold.it/32x32
-
 const products = [
   {
     "_id": "1",
@@ -56,7 +54,7 @@ const products = [
   }
 ];
 
-const reducer = (state:Product[] = products, action: Action) => {
+const reducer = (state: Product[] = products, action: Action) => {
   switch(action.type) {
     case ActionType.ADD_PRODUCT:
       return [action.payload, ...state]
