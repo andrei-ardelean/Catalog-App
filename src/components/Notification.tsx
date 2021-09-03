@@ -8,6 +8,7 @@ export type NotifyType = {
   message: string
   type: Severity
 }
+
 interface NotificationProps {
   notify: NotifyType
   setNotify: React.Dispatch<React.SetStateAction<NotifyType>>

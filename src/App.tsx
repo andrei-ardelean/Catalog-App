@@ -14,12 +14,12 @@ const App: React.FC = () => {
   const [currentProduct, setCurrentProduct] = useState<Product | undefined>(undefined);
   const [notify, setNotify] = useState<NotifyType>({isOpen: false, message: '', type: undefined});
 
-  const handleEditBtn = (product: Product) => {
+  const handleEditBtn = (product: Product):void => {
     setCurrentProduct(product);
     setOpenPopup(true);
   }
 
-  const handleResetCurrentProduct = () => {
+  const handleResetCurrentProduct = ():void => {
     setCurrentProduct(undefined);
     setOpenPopup(false);
   }
@@ -52,7 +52,7 @@ const App: React.FC = () => {
           </>
         )}/>
         <Route path="/products/:id" component={ProductPage}/>
-        {/* <Redirect to="/products" /> */}
+        <Redirect to="/products" />
       </div>
     </Router>
   );

@@ -57,9 +57,9 @@ const products = [
 const reducer = (state: Product[] = products, action: Action) => {
   switch(action.type) {
     case ActionType.ADD_PRODUCT:
-      return [action.payload, ...state]
+      return [action.payload, ...state];
     case ActionType.DELETE_PRODUCT:
-      return state.filter(product => product._id !== action.payload)
+      return state.filter(product => product._id !== action.payload);
     case ActionType.EDIT_PRODUCT:
       return state.map(product => {
         if(product._id !== action.payload._id) {
@@ -68,7 +68,7 @@ const reducer = (state: Product[] = products, action: Action) => {
         return action.payload;
       })
     default: {
-      return state
+      return state;
     }
   }
 }

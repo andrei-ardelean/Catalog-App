@@ -5,9 +5,10 @@ import { actionCreators, State } from '../state';
 import { NotifyType } from './Notification';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
+import Product from '../interfaces';
 
 interface ProductListProps {
-  handleEditBtn: any
+  handleEditBtn: (product: Product) => void
   setNotify: React.Dispatch<React.SetStateAction<NotifyType>>
 }
 

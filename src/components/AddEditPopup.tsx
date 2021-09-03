@@ -1,5 +1,5 @@
 import '../styles/AddEditPopup.css'
-import { forwardRef, Ref, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators, State } from '../state';
@@ -28,7 +28,7 @@ interface AddEditPopupProps {
   product: Product | undefined
   title: string
   openPopup: boolean
-  handleResetCurrentProduct: any
+  handleResetCurrentProduct: () => void
   setNotify: React.Dispatch<React.SetStateAction<NotifyType>>
 }
 
@@ -61,9 +61,9 @@ const AddEditPopup: React.FC<AddEditPopupProps> = ({product, title, openPopup, h
 
   const validate = ():boolean =>  {
     let temp = {name: "", url: "", description: "", price: ""}
-    temp.name = input.name ? "" : "The 'Name' field cannot be empty."
+    temp.name = input.name ? "" : "Name cannot be empty."
     temp.price = (Number.isInteger(Number(input.price)) && input.price) ? "" : "Price must be an integer value."
-    temp.url = input.url ? "" : "The 'URL' field cannot be empty."
+    temp.url = input.url ? "" : "URL cannot be empty."
     setErrors({
       ...temp
     });
