@@ -16,4 +16,9 @@ interface EditAction {
   payload: Product
 }
 
-export type Action = AddAction | DeleteAction | EditAction;
+interface AddNameAction {
+  type: ActionType.ADD_NAME
+  payload: string[]
+}
+
+export type Action = AddAction | DeleteAction | EditAction | AddNameAction;

@@ -1,15 +1,14 @@
-import '../styles/AddEditPopup.css'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators, State } from '../state';
+import { actionCreators, State } from '../../state';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 import { Dialog, DialogTitle, DialogContent, makeStyles, Typography, InputAdornment, Theme } from '@material-ui/core';
-import Product from '../interfaces';
+import Product from '../../interfaces';
 import { NotifyType } from './Notification';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -152,7 +151,7 @@ const AddEditPopup: React.FC<AddEditPopupProps> = ({product, title, openPopup, h
           </div>
         </DialogTitle>
         <DialogContent dividers>
-          <div className="form-container">
+          <div className="form-container" style={{display:'flex', flexDirection: 'column', padding:20}}>
             <TextField
               type="text"
               name="name"

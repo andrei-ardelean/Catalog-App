@@ -29,3 +29,12 @@ export const editProduct = (product: Product) => {
     })
   }
 }
+
+export const addNameToProducts = (names: string[]) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.ADD_NAME,
+      payload: names
+    })
+  }
+}

@@ -1,6 +1,6 @@
 import { Link, RouteComponentProps } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import { State } from '../state';
+import { State } from '../../state';
 import { Button, Card, CardContent, CardHeader, CardMedia, makeStyles, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 

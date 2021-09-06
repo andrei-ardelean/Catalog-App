@@ -1,6 +1,6 @@
 interface Product {
   _id: string
-  name: string
+  name?: string
   url: string
   price: number
   description: string

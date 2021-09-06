@@ -1,12 +1,13 @@
 import './App.css'
 import React, { useState } from 'react';
-import AddEditPopup from './components/AddEditPopup';
-import Header from './components/Header';
-import ProductList from './components/ProductList';
-import ProductPage from './components/ProductPage';
+import AddEditPopup from './components/features/AddEditPopup';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import Product from './interfaces';
-import Notification, { NotifyType } from './components/Notification';
+import Header from './components/features/Header';
+import ProductList from './components/products/ProductList';
+import ProductPage from './components/products/ProductPage';
+import Notification, { NotifyType } from './components/features/Notification';
+import MemoizedProductList from './components/products/ProductList';
 
 const App: React.FC = () => {
 

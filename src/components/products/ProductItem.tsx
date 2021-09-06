@@ -1,4 +1,4 @@
-import Product from '../interfaces';
+import Product from '../../interfaces';
 import { Button, ButtonGroup, Card, CardActions, CardHeader, CardMedia, makeStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
