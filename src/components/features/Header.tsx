@@ -9,7 +9,6 @@ interface HeaderProps {
 }
 
 const WrappedHeader: React.FC<HeaderProps> = ({openPopup, setOpenPopup}) => {
-  console.log("Header render")
   return (
     <div className="header-container">
         <h1 className="header-title" style={{flexGrow:1}}>Leroy Merlin low-budget</h1>
