@@ -4,12 +4,12 @@ import { bindActionCreators } from 'redux';
 import { actionCreators, State } from '../../state';
 import { NotifyType } from '../features/Notification';
 import { Grid, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Product from '../../interfaces';
 
 interface ProductListProps {
   handleEditBtn: (product: Product) => void
-  setNotify: React.Dispatch<React.SetStateAction<NotifyType>>
+  setNotify: (notify: NotifyType) => void
 }
 
 const useStyles = makeStyles({
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   }
 });
 
-const ProductList: React.FC<ProductListProps> = ({handleEditBtn, setNotify}) => {
+const WrappedProductList: React.FC<ProductListProps> = ({handleEditBtn, setNotify}) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -34,10 +34,6 @@ const ProductList: React.FC<ProductListProps> = ({handleEditBtn, setNotify}) => 
       type: 'success'
     })
   };
-
-  useEffect(() => {
-    fetchProductsName();
-  }, []);
 
   //side-effect, should always be performed in componentDidMount (in this case, useEffect with empty array of dependencies)
   const fetchProductsName = async() => {
@@ -64,6 +60,34 @@ const ProductList: React.FC<ProductListProps> = ({handleEditBtn, setNotify}) => 
     }
   }
 
+  useEffect(() => {
+    fetchProductsName();
+  }, []);
+
+  const gridContainer = useMemo(() => {
+    return (
+    <Grid container spacing={2} className={classes.gridContainer}>
+    {
+      products.map(product => {
+        return (
+          <Grid item key={product._id} xs={12} sm={6} md={4} lg={3}>
+            <ProductItem
+              _id={product._id}
+              name={product.name}
+              url={product.url}
+              price={product.price}
+              description={product.description}
+              onDelete={handleDeleteBtn}
+              onEdit={handleEditBtn}
+          />
+          </Grid>
+        );
+      })
+    }
+    </Grid>
+    )
+  }, [products]);
+
   return (
     <>
       {
@@ -74,25 +98,7 @@ const ProductList: React.FC<ProductListProps> = ({handleEditBtn, setNotify}) => 
         : (
           products.length > 0
             ? (
-              <Grid container spacing={2} className={classes.gridContainer}>
-                {
-                  products.map(product => {
-                    return (
-                      <Grid item key={product._id} xs={12} sm={6} md={4} lg={3}>
-                        <ProductItem
-                          _id={product._id}
-                          name={product.name}
-                          url={product.url}
-                          price={product.price}
-                          description={product.description}
-                          onDelete={handleDeleteBtn}
-                          onEdit={handleEditBtn}
-                      />
-                      </Grid>
-                    );
-                  })
-                }
-                </Grid>
+              gridContainer
             )
             : (
               <div style={{margin: 20}}>
@@ -106,5 +112,7 @@ const ProductList: React.FC<ProductListProps> = ({handleEditBtn, setNotify}) => 
     </>
   );
 }
+
+const ProductList = React.memo(WrappedProductList);
 
 export default ProductList;

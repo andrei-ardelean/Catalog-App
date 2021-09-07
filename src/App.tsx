@@ -4,10 +4,10 @@ import AddEditPopup from './components/features/AddEditPopup';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import Product from './interfaces';
 import Header from './components/features/Header';
-import ProductList from './components/products/ProductList';
-import ProductPage from './components/products/ProductPage';
+import ProductList from './components/product/ProductList';
+import ProductPage from './components/product/ProductPage';
 import Notification, { NotifyType } from './components/features/Notification';
-import MemoizedProductList from './components/products/ProductList';
+import { useCallback } from 'react';
 
 const App: React.FC = () => {
 
@@ -15,22 +15,30 @@ const App: React.FC = () => {
   const [currentProduct, setCurrentProduct] = useState<Product | undefined>(undefined);
   const [notify, setNotify] = useState<NotifyType>({isOpen: false, message: '', type: undefined});
 
-  const handleEditBtn = (product: Product):void => {
+  const handleEditBtn = useCallback((product: Product):void => {
     setCurrentProduct(product);
     setOpenPopup(true);
-  }
+  }, []);
+
+  const handleSetNotify = useCallback((notify: NotifyType):void => {
+    setNotify(notify);
+  }, []);
 
   const handleResetCurrentProduct = ():void => {
     setCurrentProduct(undefined);
     setOpenPopup(false);
   }
 
+  const handleSetOpenPopup = useCallback((openPopup: boolean): void => {
+    setOpenPopup(openPopup);
+  }, [setOpenPopup]);
+
   return (
     <Router>
       <div className="App">
         <Route exact path="/products" render={() => (
           <>
-            <Header openPopup={openPopup} setOpenPopup={setOpenPopup}/>
+            <Header openPopup={openPopup} setOpenPopup={handleSetOpenPopup}/>
             {
               openPopup && 
                 <AddEditPopup
@@ -49,7 +57,7 @@ const App: React.FC = () => {
             </Notification>
             <ProductList
               handleEditBtn={handleEditBtn}
-              setNotify={setNotify}/>
+              setNotify={handleSetNotify}/>
           </>
         )}/>
         <Route path="/products/:id" component={ProductPage}/>

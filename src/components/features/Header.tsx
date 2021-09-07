@@ -1,13 +1,15 @@
 import '../../styles/Header.css';
 import { Button } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import React from 'react';
 
 interface HeaderProps {
   openPopup: boolean
-  setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>
+  setOpenPopup: (openPopup: boolean) => void
 }
 
-const Header: React.FC<HeaderProps> = ({openPopup, setOpenPopup}) => {
+const WrappedHeader: React.FC<HeaderProps> = ({openPopup, setOpenPopup}) => {
+  console.log("Header render")
   return (
     <div className="header-container">
         <h1 className="header-title" style={{flexGrow:1}}>Leroy Merlin low-budget</h1>
@@ -20,12 +22,16 @@ const Header: React.FC<HeaderProps> = ({openPopup, setOpenPopup}) => {
               disableElevation
               disableRipple
               endIcon={<AddCircleIcon/>}
-              onClick={() => setOpenPopup(!openPopup)}>
+              onClick={() => {
+                setOpenPopup(!openPopup);
+              }}>
                 ADD
             </Button>
         }
     </div>
   );
 }
+
+const Header = React.memo(WrappedHeader);
 
 export default Header;
