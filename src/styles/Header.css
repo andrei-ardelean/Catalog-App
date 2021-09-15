@@ -1,16 +1,15 @@
 * {
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 .header-container {
   display: flex;
   align-items: center;
   height: 100px;
   width: 100%;
-  padding: 20px;
-}
+  padding: 20px; }
 
 .header-title {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin-left: 20px;
-}
+  margin-left: 20px; }
+
+/*# sourceMappingURL=Header.css.map */

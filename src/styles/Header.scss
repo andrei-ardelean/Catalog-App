@@ -1,0 +1,24 @@
+$default-align: center;
+$sizes: (main: 20px, secondary: 100px);
+$default-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+* {
+  box-sizing: border-box;
+}
+
+@mixin flex-props() {
+  display: flex;
+  align-items: $default-align;
+}
+
+.header-container {
+  @include flex-props();
+  height: map-get($sizes, secondary);
+  width: 100%;
+  padding: map-get($sizes, main);
+}
+
+.header-title {
+  font-family: $default-font-family;
+  margin-left: map-get($sizes, main);
+}
