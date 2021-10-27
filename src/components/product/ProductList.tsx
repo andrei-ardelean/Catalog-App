@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useMemo, useState } from "react";
 import Product from "../../interfaces";
+import { addNameToProducts } from "../../state/action-creators";
 
 interface ProductListProps {
   handleEditBtn: (product: Product) => void;
@@ -30,7 +31,7 @@ const WrappedProductList: React.FC<ProductListProps> = ({
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const { deleteProduct, addNameToProducts } = bindActionCreators(
+  const { deleteProduct, getNameOfProducts } = bindActionCreators(
     actionCreators,
     dispatch
   );
@@ -46,24 +47,10 @@ const WrappedProductList: React.FC<ProductListProps> = ({
     });
   };
 
-  //side-effect, should always be performed in componentDidMount (in this case, useEffect with empty array of dependencies)
   const fetchProductsName = async () => {
-    const url = "https://randomuser.me/api/";
-    const names: string[] = [];
-    try {
-      for (let i = 0; i < products.length; i++) {
-        await fetch(url)
-          .then((results) => {
-            return results.json();
-          })
-          .then((data) => {
-            data.results.map((user: any) => {
-              names.push(user.name.first);
-              return user.name.first;
-            });
-          });
-      }
-      addNameToProducts(names);
+    try {    
+      getNameOfProducts(products.length);
+      console.log('fetch products name end');
       setIsLoading(false);
     } catch (error) {
       console.log("Error while fetching");

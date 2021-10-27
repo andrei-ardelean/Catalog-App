@@ -38,3 +38,12 @@ export const addNameToProducts = (names: string[]) => {
     });
   };
 };
+
+export const getNameOfProducts = (productsCount: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.GET_NAME,
+      payload: productsCount,
+    })
+  }
+}

@@ -3,4 +3,5 @@ export enum ActionType {
   DELETE_PRODUCT = "delete-product",
   EDIT_PRODUCT = "edit-product",
   ADD_NAME = "add-name",
+  GET_NAME = "get-name"
 }

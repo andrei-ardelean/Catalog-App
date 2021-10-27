@@ -1,24 +1,29 @@
 import Product from "../../interfaces";
 import { ActionType } from "../action-types";
 
-interface AddAction {
+export interface AddAction {
   type: ActionType.ADD_PRODUCT;
   payload: Product;
 }
 
-interface DeleteAction {
+export interface DeleteAction {
   type: ActionType.DELETE_PRODUCT;
   payload: string;
 }
 
-interface EditAction {
+export interface EditAction {
   type: ActionType.EDIT_PRODUCT;
   payload: Product;
 }
 
-interface AddNameAction {
+export interface AddNameAction {
   type: ActionType.ADD_NAME;
   payload: string[];
 }
 
-export type Action = AddAction | DeleteAction | EditAction | AddNameAction;
+export interface GetNameAction {
+  type: ActionType.GET_NAME;
+  payload: number;
+}
+
+export type Action = AddAction | DeleteAction | EditAction | AddNameAction | GetNameAction;
