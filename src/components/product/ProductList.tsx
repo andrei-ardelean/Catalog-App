@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useMemo, useState } from "react";
 import Product from "../../interfaces";
-import { addNameToProducts } from "../../state/action-creators";
 
 interface ProductListProps {
   handleEditBtn: (product: Product) => void;
@@ -47,10 +46,9 @@ const WrappedProductList: React.FC<ProductListProps> = ({
     });
   };
 
-  const fetchProductsName = async () => {
-    try {    
+  const fetchProductsName = () => {
+    try {
       getNameOfProducts(products.length);
-      console.log('fetch products name end');
       setIsLoading(false);
     } catch (error) {
       console.log("Error while fetching");
@@ -59,6 +57,7 @@ const WrappedProductList: React.FC<ProductListProps> = ({
 
   useEffect(() => {
     fetchProductsName();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const gridContainer = useMemo(() => {
@@ -81,6 +80,7 @@ const WrappedProductList: React.FC<ProductListProps> = ({
         })}
       </Grid>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products]);
 
   return (
