@@ -72,6 +72,7 @@ const WrappedProductList: React.FC<ProductListProps> = ({
 
   useEffect(() => {
     fetchProductsName();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const gridContainer = useMemo(() => {
@@ -94,6 +95,7 @@ const WrappedProductList: React.FC<ProductListProps> = ({
         })}
       </Grid>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products]);
 
   return (
